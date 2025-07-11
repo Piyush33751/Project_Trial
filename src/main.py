@@ -188,3 +188,10 @@ if __name__ == '__main__':
 
 
 
+if(temp_humid_sensor >=100):
+    led.set_output(1, 1)
+    time.sleep(1)
+    led.set_output(1, 0)
+    time.sleep(1)
+else:
+     led.set_output(1, 0)
