@@ -132,7 +132,7 @@ def main():
         elif (keyvalue == 8):
             lcd.lcd_display_string("key pressed "  +str(keyvalue), 1)     
             lcd.lcd_display_string("servo/DC test ", 2)  
-            servo.set_servo_position(20)
+            servo.set_servo_position(120)
             time.sleep(1)  
             servo.set_servo_position(80)
             time.sleep(1)     
