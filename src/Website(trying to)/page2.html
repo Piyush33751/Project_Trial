@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secure Access - Fire Response Panel</title>
+  <style>
+    body {
+      background-color: #fff8dc; /* light yellow cream */
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 60px;
+      margin: 0;
+    }
+
+    h1 {
+      color: #cc0000; /* strong red */
+      font-size: 36px;
+    }
+
+    p {
+      color: #333;
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    button {
+      padding: 14px 30px;
+      margin: 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .camera-btn {
+      background-color: #cc0000;
+      color: black;
+    }
+
+    .camera-btn:hover {
+      background-color: #a30000;
+      transform: scale(1.05);
+    }
+
+    .database-btn {
+      background-color: #ffcc00;
+      color: black;
+    }
+
+    .database-btn:hover {
+      background-color: #e6b800;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>Choose status viewing options</h1>
+  <p>Camera to view live feed and database to view on duty firefighters.</p>
+
+<button class="camera-btn">Enter Camera</button>
+<br><br>
+<button class="database-btn">Status of Firefighters</button>
+<script>
+  document.querySelector(".camera-btn").addEventListener("click", function() {
+    window.location.href = "page4.html";
+  });
+
+  document.querySelector(".database-btn").addEventListener("click", function() {
+    window.location.href = "page3.html";
+  });
+</script>
+</body>
+</html>
+

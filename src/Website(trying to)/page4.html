@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Feed of Camera</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #8B0000, #000000);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      color: #FFD700;
+      text-shadow: 2px 2px 5px black;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      text-align: center;
+      max-width: 600px;
+    }
+
+    iframe {
+      border: 4px solid #FFD700;
+      border-radius: 10px;
+      box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <h1> Camera Live Feed</h1>
+  <p>Use this view to monitor the fire-sensitive area in real time. Stay alert and stay safe.</p>
+
+  <iframe width="560" height="315" 
+    src="https://www.youtube.com/embed/xRPjKQtRXR8" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen>
+  </iframe>
+</body>
+</html>
