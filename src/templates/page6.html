@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>On-Duty Firefighters</title>
+    <style>
+        body {
+            background-color: #ffe4e1;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 60%;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 10px;
+        }
+        th {
+            background-color: #ff4444;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Off-Duty Firefighters</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Area</th>
+            <th>Status</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            <td>{{ row[0] }}</td>  <!-- name -->
+            <td>{{ row[1] }}</td>  <!-- area -->
+            <td>{{ row[2] }}</td>  <!-- status -->
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
