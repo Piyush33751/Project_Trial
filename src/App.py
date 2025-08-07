@@ -1,19 +1,19 @@
 from flask import Flask, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
+
 #import test_AlertSystem as AlertSys  # Uncomment when you have it
 
 app = Flask(__name__)
 
-# SQLAlchemy configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:passworddevops3321@localhost/firefighters'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:passworddevops3321@192.168.18.74/firefighters'
+# SQLAlchemy configuration - CHANGED TO USE webapp USER
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://webapp:passworddevops3321@localhost:3306/firefighters'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Firefighters model
+# Firefighters model - FIXED SYNTAX
 class Firefighter(db.Model):
-    __tablename__ = 'firefighters_info'
+    __tablename__ = 'firefighters_info'  # FIXED: double underscores
     name = db.Column(db.String(50), primary_key=True)
     area = db.Column(db.String(50))
     status = db.Column(db.String(20))
@@ -59,5 +59,8 @@ def page6():
     off_duty = Firefighter.query.filter(Firefighter.status.ilike('Off-Duty')).all()
     return render_template('page6.html', data=off_duty)
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # FIXED: double underscores
+    with app.app_context():
+        db.create_all()  # ADDED: This creates the database tables
+        print("Database tables created successfully!")
     app.run(debug=True, host='0.0.0.0')
