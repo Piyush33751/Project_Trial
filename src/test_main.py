@@ -16,7 +16,7 @@ from hal import hal_usonic as usonic
 from hal import hal_dc_motor as dc_motor
 
 import test_AlertSystem as AlertSys
-import test_TempSmoke as tempsmoke
+import test_RemoteAccess as RemoteAccess
 
 def main():
     #initialization of HAL modules
@@ -44,21 +44,23 @@ def main():
             led.set_output(1, 0)
             dc_motor.set_motor_speed(0)
             servo.set_servo_position(75)
-            time.sleep(3)
+            time.sleep(1)
 
         else:
-            buzzer.beep(0.1, 0.1, 16)
-            for i in range(10):
+            buzzer.beep(0.1, 0.1, 3)
+            for i in range(5):
                 led.set_output(1, 1)
-                time.sleep(0.5)
+                time.sleep(0.2)
                 led.set_output(1, 0)
-                time.sleep(0.5)
+                time.sleep(0.2)
             lcd.lcd_clear()
             lcd.lcd_display_string("Fire Detected!", 1)
             lcd.lcd_display_string("Please Evacuate", 2)
             servo.set_servo_position(160)
-            time.sleep(2)
+            time.sleep(1)
             dc_motor.set_motor_speed(50)
+            RemoteAccess.sendMsg()
+
         
         
         time.sleep(0.5)  # Short delay to prevent CPU overuse
