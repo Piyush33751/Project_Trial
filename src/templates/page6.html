@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>On-Duty Firefighters</title>
+    <title>Off-Duty Firefighters</title>
     <style>
         body {
             background-color: #ffe4e1;
@@ -21,23 +21,44 @@
             background-color: #ff4444;
             color: white;
         }
+        .no-data {
+            color: #666;
+            font-style: italic;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
     <h1>Off-Duty Firefighters</h1>
+    
+    {% if data and data|length > 0 %}
     <table>
         <tr>
             <th>Name</th>
             <th>Area</th>
             <th>Status</th>
         </tr>
-        {% for row in data %}
+        {% for firefighter in data %}
         <tr>
-            <td>{{ row[0] }}</td>  <!-- name -->
-            <td>{{ row[1] }}</td>  <!-- area -->
-            <td>{{ row[2] }}</td>  <!-- status -->
+            <td>{{ firefighter.name }}</td>
+            <td>{{ firefighter.area }}</td>
+            <td>{{ firefighter.status }}</td>
         </tr>
         {% endfor %}
     </table>
+    {% else %}
+    <div class="no-data">
+        <p>No off-duty firefighters found.</p>
+        <p>This could mean:</p>
+        <ul style="text-align: left; display: inline-block;">
+            <li>All firefighters are currently on duty</li>
+            <li>The database is empty</li>
+            <li>The status values don't match "Off-Duty" exactly</li>
+        </ul>
+    </div>
+    {% endif %}
+    
+    <br><br>
+    <a href="/">Back to Home</a>
 </body>
 </html>
