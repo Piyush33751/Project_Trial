@@ -1,20 +1,27 @@
-from flask import Flask
-from flask import render_template 
-from flask_mysqldb import MySQL
-from flask import jsonify
-import test_AlertSystem as AlertSys #replace with import test_AlertSystem as AlertSys
+from flask import Flask, render_template, jsonify
+from flask_sqlalchemy import SQLAlchemy
+#import test_AlertSystem as AlertSys  # Uncomment when you have it
 
 app = Flask(__name__)
 
-app.config["MYSQL_HOST"] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'passworddevops3321'
-app.config['MYSQL_DB'] = 'firefighters'
+# SQLAlchemy configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:passworddevops3321@localhost/firefighters'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:passworddevops3321@192.168.18.74/firefighters'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-mysql = MySQL(app)
+db = SQLAlchemy(app)
 
+# Firefighters model
+class Firefighter(db.Model):
+    __tablename__ = 'firefighters_info'
+    name = db.Column(db.String(50), primary_key=True)
+    area = db.Column(db.String(50))
+    status = db.Column(db.String(20))
+    password = db.Column(db.String(10))
+
+# Mock alert system function
 def get_fire_status():
-    return AlertSys.alert()
+    return 1  # Replace with AlertSys.alert() once implemented
 
 @app.route('/')
 def Home():
@@ -27,13 +34,12 @@ def page2():
 @app.route('/api/fire-status')
 def fire_status_api():
     try:
-        fire_value = get_fire_status()  # Gets value from your fire_alert.py
-        print(f"Fire status requested: {fire_value}")  # Debug print
+        fire_value = get_fire_status()
+        print(f"Fire status requested: {fire_value}")
         return jsonify({'value': fire_value, 'status': 'success'})
     except Exception as e:
-        print(f"Error: {str(e)}")  # Debug print
+        print(f"Error: {str(e)}")
         return jsonify({'value': 0, 'status': 'error', 'message': str(e)})
-
 
 @app.route('/page3.html')
 def page3():
@@ -45,18 +51,13 @@ def page4():
 
 @app.route('/page5.html')
 def page5():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM firefighters_info WHERE status = 'On-Duty'")
-    fetchdata = cur.fetchall()
-    cur.close()
-    return render_template('page5.html', data=fetchdata)
-@app.route('/page6.html')
-def page6():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM firefighters_info WHERE status = 'Off-Duty'")
-    fetchdata = cur.fetchall()
-    cur.close()
-    return render_template('page6.html', data=fetchdata)
+    on_duty = Firefighter.query.filter(Firefighter.status.ilike('On-Duty')).all()
+    return render_template('page5.html', data=on_duty)
 
-if __name__=='__main__':
-    app.run(debug=True,host='0.0.0.0') 
+@app.route('/page6.html') 
+def page6():
+    off_duty = Firefighter.query.filter(Firefighter.status.ilike('Off-Duty')).all()
+    return render_template('page6.html', data=off_duty)
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
