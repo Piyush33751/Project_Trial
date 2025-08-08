@@ -1,7 +1,7 @@
 import time
 from threading import Thread
 import queue
-
+from picamera2 import Picamera2, Preview
 from hal import hal_led as led
 from hal import hal_lcd as LCD
 from hal import hal_adc as adc
@@ -17,6 +17,7 @@ from hal import hal_dc_motor as dc_motor
 
 import test_AlertSystem as AlertSys
 import test_RemoteAccess as RemoteAccess
+import test_PiCam as PiCam
 
 def main():
     #initialization of HAL modules
@@ -34,7 +35,8 @@ def main():
     lcd = LCD.lcd()
     lcd.lcd_clear()
 
-    
+    alert_prev = False
+
     while(True):
         alert = AlertSys.alert()
 
@@ -44,6 +46,7 @@ def main():
             led.set_output(1, 0)
             dc_motor.set_motor_speed(0)
             servo.set_servo_position(75)
+            alert_prev = False
             time.sleep(1)
 
         else:
@@ -59,9 +62,11 @@ def main():
             servo.set_servo_position(160)
             time.sleep(1)
             dc_motor.set_motor_speed(50)
-            RemoteAccess.sendMsg()
-
-        
+            if not alert_prev:
+                PiCam.photo()
+                RemoteAccess.sendMsg()
+                alert_prev = True
+            time.sleep(1)
         
         time.sleep(0.5)  # Short delay to prevent CPU overuse
 
