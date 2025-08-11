@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
-#import test_AlertSystem as AlertSys  # Uncomment when you have it
+import test_AlertSystem as AlertSys  # Uncomment when you have it
 
 app = Flask(__name__)
 
@@ -21,7 +21,7 @@ class Firefighter(db.Model):
 
 # Mock alert system function
 def get_fire_status():
-    return 1  # Replace with AlertSys.alert() once implemented
+    return AlertSys.alert()  # Replace with AlertSys.alert() once implemented
 
 @app.route('/')
 def Home():
