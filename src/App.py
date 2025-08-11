@@ -1,13 +1,13 @@
 from flask import Flask, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
-import test_AlertSystem as AlertSys  # Uncomment when you have it
+#import AlertSystem as AlertSys  # Uncomment when you have it
 
 app = Flask(__name__)
 
-# SQLAlchemy configuration - CHANGED TO USE webapp USER
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://webapp:passworddevops3321@localhost:3306/firefighters' for raspberry pi
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:passworddevops3321@localhost:3306/firefighters'
+#SQLAlchemy configuration - CHANGED TO USE webapp USER
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://webapp:passworddevops3321@localhost:3306/firefighters'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:passworddevops3321@localhost:3306/firefighters'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
