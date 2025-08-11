@@ -30,23 +30,31 @@
       max-width: 600px;
     }
 
-    iframe {
+    .camera-display {
       border: 4px solid #FFD700;
       border-radius: 10px;
       box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.6);
+      overflow: hidden;
+    }
+
+    .camera-image {
+      width: 560px;
+      height: 315px;
+      object-fit: cover;
+      display: block;
     }
   </style>
 </head>
 <body>
-  <h1> Camera Live Feed</h1>
+  <h1>Camera Live Feed</h1>
   <p>Use this view to monitor the fire-sensitive area in real time. Stay alert and stay safe.</p>
 
-  <iframe width="560" height="315" 
-    src="https://www.youtube.com/embed/xRPjKQtRXR8" 
-    title="YouTube video player" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-    allowfullscreen>
-  </iframe>
+  <!-- REPLACED: iframe with camera image -->
+  <div class="camera-display">
+    <img src="{{ url_for('static', filename='galaxy-wallpapers-6.jpg') }}" alt="Camera Feed" class="camera-image">
+  </div>
+  
+  <br><br>
+  <a href="/" style="color: #FFD700;">Back to Home</a>
 </body>
 </html>
