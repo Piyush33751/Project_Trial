@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
-#import test_AlertSystem as AlertSys  # Uncomment when you have it
+import test_AlertSystem as AlertSys  # Uncomment when you have it
 
 app = Flask(__name__)
 
