@@ -1,5 +1,5 @@
 from hal import hal_input_switch as input_switch
-import test_TempSmoke as tempsmoke
+import TempSmoke as tempsmoke
 
 def alert():
     smoke = tempsmoke.get_ir_sensor_state()

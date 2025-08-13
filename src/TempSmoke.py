@@ -13,7 +13,7 @@ def get_ir_sensor_state():
 def get_temp_state():
     temp = False
     temperature, humidity= temp_humid_sensor.read_temp_humidity()
-    if temperature > 20000:
+    if temperature > 10:
         temp = True
     else:
         temp = False
