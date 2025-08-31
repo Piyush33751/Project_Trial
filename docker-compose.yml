@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  firewebapp:
+    image: firewebapp:latest
+    container_name: firewebapp
+    network_mode: host
+    volumes:
+      - /home/pi/ET0735/Smart_FireAlert_System_AIoT/src/static:/app/static:ro
+    restart: unless-stopped
+
+  noCacheProxy:
+    image: nginx:alpine
+    container_name: noCacheProxy
+    network_mode: host
+    volumes:
+      - /home/pi/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped

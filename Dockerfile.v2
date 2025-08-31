@@ -1,0 +1,27 @@
+FROM python:3.11-slim-bookworm
+
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Add build tools + image libs for Pillow (zlib, jpeg, png, tiff, webp, freetype, lcms, openjp2)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential pkg-config \
+    zlib1g-dev libjpeg62-turbo-dev libpng-dev libtiff5-dev \
+    libwebp-dev libfreetype6-dev liblcms2-dev libopenjp2-7-dev \
+    python3-rpi.gpio python3-spidev python3-smbus \
+ && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY requirements.txt .
+
+# Modern build tools; install deps WITHOUT build isolation
+RUN python -m pip install -U pip setuptools wheel && \
+    grep -v -E '^(RPi\.GPIO|smbus2|spidev|picamera2)\b' requirements.txt > requirements.nopi.txt || true && \
+    PIP_NO_BUILD_ISOLATION=1 pip install --prefer-binary -r requirements.nopi.txt
+
+COPY . .
+CMD ["python", "src/app.py"]
+
